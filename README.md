@@ -1,37 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Nextjs Routing
+Bir nextjs projesinde routing için 2 farklı yol izlenebilir.
+Pages Router (Eski Yöntem)
+App Router (Önerilen Yöntem)
+App Router
+Dosya dizinine göre / klasör tabanlı sayfalamaya yarar.
+Bürün sayfalar src/app klasörü içerisinde tanımlanır.
+App içerisinde tanımlanan ve içinde page dosyası olan her klasör bir sayfaya denk gelir
+Nested Routes - İç İçe Yollar
+Örn:
 
-## Getting Started
+/profile > profili görüntüleyin
 
-First, run the development server:
+/profile/friends > arkadaşlarını görüntüle
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+/profile/edit > profili düzenle
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+nested routes oluştururken, bir alt route oluşturmak için sadece bir sayfa klasörünü içine yeni bir sayfa oluşturmalıyız
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Dynamic Routes - Dinamik Yollar
+Bir, e-ticaret projesi yapıyorsak yüzlerce ürünün herbirine farklı sayfa oluşturamıyacğımızdan dolayı url'deki parametreye göre değişen dinamik sayfalar oluşturmalıyız
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Sayfa içeriği url'deki parametreye göre değişeceği için parametreyei tanımlamalıyız.
 
-## Learn More
+Paramatre tanımlarken [parametre-ismi] syntaxı kullanırız
 
-To learn more about Next.js, take a look at the following resources:
+Nested Dynamic Routes - İç İçe Dinamik Yollar
+/products/20/reviews > id'si 20 olan ürünün yorumları
+/products/20/reviews/4 > id'si 20 olan ürünün yorumlarından 4.
+Link
+Yönlendirme için kullanırız.
+href değeri yönlendirilecek url'i belirler.
+"." ile bir önceki sayfaya yönlendirirz
+Route Group
+Proje içerisindeki sayfa sayısı arttıkça daha organize olabilmek için sayfaları gruplandırmak isteyebiliriz.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Yazdığımız sayfaların daha kolay erişlebilir olması için sayfaları gruplandırırız.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Url'e etki etmesini istedğimiz klasörleri () içine alırız
 
-## Deploy on Vercel
+Metadata
+SEO açısından metadataları tanımlamak önemlidir.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Sayfların metadata dediğimiz taryıcıda önce çıkması için ihtiyacı olan başlık/açıklama/logo gibi değerleri react'da sabit bir şekilde bütün sayfalarda aynı olarak ifade ederken next.js'de her sayfaya özel metadata tanımlayabiliyoruz
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Nextjs-Basics
+statik ve dianmik şekilde tanımlanabilir
+
+Layout - Düzen bileşeni
+Bir uygulamanın veya sayfa grubunun genel sayfa düzenini ve ortak bileşenlerini tanımllamamızı sağlar
+
+RootLayout'da yapılan değişiklikler projedeki bütün sayfaları etkiler ama bazı durumlarda sadece bir route grubundaki sayfaların ortak componentlarını tanımlamak isteyebiliriz bu durumda o route grubuna özel layour oluşturuz
+
+Template - Düzen bileşeni
+Layout ile aynı görevi
+Tek farklı sayfa geçişlerinde layout state'i korurken template'de tutulam state sıfırlanır
+Özel Dosyalar
+Nextjs'de ismi varsayılan olarak belirlenmiş ve özel bir amaca hizmet eden dosyalar vardır.
+
+page: bir sayfa tanımlamaya yarar
+
+layout: sayfaların düzenini oluşturmaya yarar
+
+template: sayfaların düzenini oluşturmaya yarar
+
+not-found: 404 sayfası tanımlamaya yarar
+
+loading: bir sayfa async await ile beklediği süre boyunca syayfanın yerin ekrana basılır
+
+error: bir sayfada hata oluştuğu ada otomatik olarak ekrana basılır
+
+Static Site Generation (SSG)
+Nextjs'de static ve dynamic page kavramları sayfanın nasıl oluşturulduğunu ve kullanıcıya hangi yoldan sunulacağınız ifade eder.
+Static Page
+Derleme aşamasında (build-time) oluşturulur ve HTML dosyaları olarak sunucuya yüklenir. Bu sayfalar, içeriklerinde değişiklik olmadıkça tekrarden oluşturulmazlar
+
+Performans çok hızlıdır, çümnkü sayfalar bir kez oluşturulur ve CDN üzeirnden önbelleğe alınabilir. Bu sayede her istek sunucuda işlenmez.
+
+SEO açısından statik sayfalar iyidir. Sayfa içeriği kolayca indexlenebiliri
+
+Dynamic Page
+Dinamik sayfalar, her kullancı isteğinden dinamik oluşturulur. Yani sayfa içeriği kullanıcıdan kullanıcıya / paremetreye bağlı değişebilir.

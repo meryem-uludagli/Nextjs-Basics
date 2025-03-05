@@ -1,6 +1,13 @@
 import Link from "next/link";
 import React from "react";
 
+export const generateMetadata = async ({ params }) => {
+  const id = (await params).id;
+  return {
+    title: params.id + "idli urunun detayi",
+  };
+};
+
 const Detail = async ({ params }) => {
   console.log("Parametreler", params);
 
